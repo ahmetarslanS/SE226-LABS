@@ -1,0 +1,125 @@
+#include <iostream>
+
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node *next;
+
+    Node(int x) {
+        data = x;
+        next = NULL;
+
+    }
+};
+
+class Queue {
+    Node *front, *rear;
+    int count;
+
+public:
+    Queue() {
+        front = rear = NULL;
+        count = 0;
+    }
+
+    void enqueue(int x) {
+        Node *temp = new Node(x);
+
+        if (rear == NULL) {
+            front = rear = temp;
+            count++;
+            cout << x << " added to the queue." << endl;
+            return;
+        }
+
+        rear->next = temp;
+        rear = temp;
+        cout << x << " added to the queue." << endl;
+        count++;
+    }
+
+    void dequeue() {
+
+        if (front == NULL) {
+            return;
+        }
+
+        Node *temp = front;
+        cout << front->data << " removed from the queue." << endl;
+        front = front->next;
+
+        if (front == NULL) {
+            rear = NULL;
+        }
+        delete (temp);
+
+        count--;
+    }
+
+    int size() {
+        return count;
+    }
+
+    bool isEmpty() {
+        return (front == NULL && rear == NULL);
+    }
+
+    int top() {
+
+        if (isEmpty()) {
+            cout << "Top element does not exist. Queue is empty!";
+            return -1;
+        }
+        return front->data;
+
+    }
+
+
+};
+
+int main() {
+
+    Queue queue;
+
+    queue.enqueue(25);
+    queue.enqueue(50);
+    queue.enqueue(75);
+
+
+    cout << "Top element: " << queue.top() << endl;
+    cout << "Size: " << queue.size() << endl;
+    if (queue.isEmpty()) {
+        cout << "Queue is empty." << endl;
+    } else {
+        cout << "Queue is not empty." << endl;
+    }
+    cout << endl;
+
+    queue.dequeue();
+
+    cout << "Top element: " << queue.top() << endl;
+    cout << "Size: " << queue.size() << endl;
+    if (queue.isEmpty()) {
+        cout << "Queue is empty." << endl;
+    } else {
+        cout << "Queue is not empty." << endl;
+    }
+    cout << endl;
+
+    queue.dequeue();
+    queue.dequeue();
+
+    cout << "Top element: " << queue.top() << endl;
+    cout << "Size: " << queue.size() << endl;
+    if (queue.isEmpty()) {
+        cout << "Queue is empty." << endl;
+    } else {
+        cout << "Queue is not empty." << endl;
+    }
+    cout << endl;
+
+
+    return 0;
+}
